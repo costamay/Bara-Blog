@@ -170,6 +170,7 @@ SITE_ID = 1
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 ACCOUNT_LOGOUT_REDIRECT_URL = "index"
+LOGOUT_URL = 'index'
 LOGIN_REDIRECT_URL = '/'
 
 # ACCOUNT_EMAIL_REQUIRED = True
