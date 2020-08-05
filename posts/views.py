@@ -16,15 +16,15 @@ def signup(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.clean_data.get('username')
+            username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
-        else:
-            context = {
-                'form': form
-            }
+            return redirect('/')
+        # else:
+        #     context = {
+        #         'form': form
+        #     }
     else:
         form = RegistrationForm()
     context = {
