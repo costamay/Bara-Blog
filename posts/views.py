@@ -1,6 +1,7 @@
 from django.db.models import Count, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from django.contrib.auth import (
@@ -9,6 +10,27 @@ from django.contrib.auth import (
     login,
     logout
     )
+
+def signup(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+        # else:
+        #     context = {
+        #         'form': form
+        #     }
+    else:
+        form = RegistrationForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'registration/signup.html', context)
 
 def login_view(request):
     next = request.GET.get('next')
